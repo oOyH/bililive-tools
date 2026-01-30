@@ -12,6 +12,8 @@ describe("PathResolver", () => {
   });
 
   afterEach(async () => {
+    // 清理 mock
+    vi.restoreAllMocks();
     // 清理临时测试目录
     await fs.remove(tempDir);
   });

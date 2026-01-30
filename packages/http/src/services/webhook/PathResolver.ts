@@ -36,11 +36,6 @@ export class PathResolver {
     const coverJpg = path.join(dir, `${name}.jpg`);
     const coverPng = path.join(dir, `${name}.png`);
 
-    // 检查 .png
-    if (fs.pathExistsSync(coverPng)) {
-      return coverPng;
-    }
-
     // 优先检查 .cover.jpg
     if (fs.pathExistsSync(coverWithSuffix)) {
       return coverWithSuffix;
@@ -49,6 +44,11 @@ export class PathResolver {
     // 其次检查 .jpg
     if (fs.pathExistsSync(coverJpg)) {
       return coverJpg;
+    }
+
+    // 最后检查 .png
+    if (fs.pathExistsSync(coverPng)) {
+      return coverPng;
     }
 
     return "";
