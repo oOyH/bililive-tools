@@ -18,6 +18,7 @@ describe("PathResolver", () => {
 
   describe("getDanmuPath", () => {
     it("如果提供了 danmuPath 参数，应该返回该路径", () => {
+      vi.spyOn(fs, "pathExistsSync").mockReturnValue(true);
       const videoPath = path.join("path", "to", "video.mp4");
       const danmuPath = path.join("path", "to", "custom-danmu.xml");
 
@@ -27,6 +28,7 @@ describe("PathResolver", () => {
     });
 
     it("如果没有提供 danmuPath，应该将视频路径的扩展名替换为 .xml", () => {
+      vi.spyOn(fs, "pathExistsSync").mockReturnValue(true);
       const videoPath = path.join("path", "to", "video.mp4");
 
       const result = PathResolver.getDanmuPath(videoPath);
@@ -35,7 +37,7 @@ describe("PathResolver", () => {
     });
 
     it("应该正确处理不同的视频格式", () => {
-      vi.spyOn(fs, "pathExistsSync").mockResolvedValue(true);
+      vi.spyOn(fs, "pathExistsSync").mockReturnValue(true);
 
       expect(PathResolver.getDanmuPath(path.join("path", "to", "video.flv"))).toBe(
         path.join("path", "to", "video.xml"),
