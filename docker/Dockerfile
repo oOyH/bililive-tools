@@ -24,6 +24,7 @@ RUN pnpm run build:webui
 # 后端构建阶段
 # ============================================
 FROM base AS backend-build
+RUN touch /tmp/test.mp4
 RUN pnpm run build:base && pnpm run --filter bililive-cli build && cd packages/CLI && node ./scripts/removeDev.js && npm install --force
 
 # 下载二进制依赖
