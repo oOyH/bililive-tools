@@ -8,6 +8,7 @@ RUN corepack enable && corepack prepare pnpm@9.15.2 --activate
 
 WORKDIR /app
 COPY . .
+RUN touch /tmp/test.mp4
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --ignore-scripts
 
 # ============================================
@@ -24,7 +25,7 @@ RUN pnpm run build:webui
 # 后端构建阶段
 # ============================================
 FROM base AS backend-build
-RUN touch /tmp/test.mp4
+
 RUN pnpm run build:base && pnpm run --filter bililive-cli build && cd packages/CLI && node ./scripts/removeDev.js && npm install --force
 
 # 下载二进制依赖
